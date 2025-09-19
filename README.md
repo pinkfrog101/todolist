@@ -1,4 +1,4 @@
-# 🌸 To-Do List App
+#  To-Do List App
 
 A beautiful and responsive **To-Do List** application built with **React**, styled using **Tailwind CSS**, and designed for simplicity and productivity. Easily add and delete tasks with descriptions, all from a clean UI.
 
