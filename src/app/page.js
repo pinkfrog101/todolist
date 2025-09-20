@@ -1,103 +1,111 @@
-import Image from "next/image";
+'use client'
+import React, { useState } from 'react'
 
-export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+const Page = () => {
+  const [task, setTask] = useState("")
+  const [desc, setDesc] = useState("")
+  const [alltasks, setAllTasks] = useState([])
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  const Handler = (e) => {
+    e.preventDefault()
+      setAllTasks([...alltasks, {task, desc}])
+      setTask("")
+      setDesc("")
+  }
+
+  const deleteHandler = (i) => {
+    let copyTask = [...alltasks]
+    copyTask.splice(i, 1)
+    setAllTasks(copyTask)
+  }
+
+  let renderTask = (
+    <div className="text-center py-12">
+      <h2 className="text-2xl text-pink-400 font-light">No tasks available</h2>
+      <p className="text-pink-300 mt-2">Add your task!</p>
     </div>
-  );
+  )
+
+  if (alltasks.length > 0) {
+    renderTask = alltasks.map((t, i) => {
+      return (
+        <li key={i} className="bg-gradient-to-r from-pink-50 to-rose-50 border border-pink-200 rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200 hover:scale-[1.02]">
+          <div className="flex justify-between items-start">
+            <div className="flex-1">
+              <h3 className="text-xl font-semibold text-pink-800 mb-2">
+                {t.task}
+              </h3>
+              <p className="text-pink-600 leading-relaxed">
+                {t.desc}
+              </p>
+            </div>
+            <button 
+              onClick={() => deleteHandler(i)}
+              className="ml-4 bg-gradient-to-r from-pink-400 to-rose-400 hover:from-pink-500 hover:to-rose-500 text-white px-4 py-2 rounded-lg transition-all duration-200 hover:shadow-md transform hover:scale-105 font-medium"
+            >
+              Delete
+            </button>
+          </div>
+        </li>
+      )
+    })
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-rose-50 to-pink-200">
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-6xl font-bold bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 bg-clip-text text-transparent mb-2">
+            TO DO LIST
+          </h1>
+          <p className="text-pink-500 text-lg font-light">Stay organized</p>
+        </div>
+
+        
+        <form className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-pink-200 mb-8">
+          <div className="space-y-4">
+            <div>
+              <input 
+                type="text" 
+                placeholder="Enter your task" 
+                className="w-full px-6 py-4 border-2 border-pink-300 rounded-xl focus:outline-none focus:border-pink-500 focus:ring-4 focus:ring-pink-200 transition-all duration-200 text-pink-800 placeholder-pink-400 bg-pink-50/50"
+                value={task} 
+                onChange={e => setTask(e.target.value)}
+              />
+            </div>
+            <div>
+              <input 
+                type="text" 
+                placeholder="Enter description" 
+                className="w-full px-6 py-4 border-2 border-pink-300 rounded-xl focus:outline-none focus:border-pink-500 focus:ring-4 focus:ring-pink-200 transition-all duration-200 text-pink-800 placeholder-pink-400 bg-pink-50/50"
+                value={desc} 
+                onChange={e => setDesc(e.target.value)}
+              />
+            </div>
+            <div className="text-center">
+              <button 
+                onClick={Handler}
+                className="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200 hover:shadow-lg transform hover:scale-105"
+              >
+                ➕ Add Task
+              </button>
+            </div>
+          </div>
+        </form>
+
+        {/* Tasks List */}
+        <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-pink-200">
+          <h2 className="text-2xl font-bold text-pink-700 mb-6 text-center">
+            Your Tasks ({alltasks.length})
+          </h2>
+          <ul className="space-y-4">
+            {renderTask}
+          </ul>
+        </div>
+      </div>
+    </div>
+  )
 }
+
+export default Page
