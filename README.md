@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -34,3 +35,22 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+=======
+#  To-Do List App
+
+A beautiful and responsive **To-Do List** application built with **React**, styled using **Tailwind CSS**, and designed for simplicity and productivity. Easily add and delete tasks with descriptions, all from a clean UI.
+
+---
+
+## ✨ Features
+
+- Add tasks with a title and description
+- View a list of all your tasks
+- Delete tasks individually
+- Responsive and mobile-friendly UI
+- Styled entirely with Tailwind CSS
+- Interactive hover and focus effects
+
+---
+
+>>>>>>> d7a12b6080252f2e389f80f9437c67cba9e8509e
